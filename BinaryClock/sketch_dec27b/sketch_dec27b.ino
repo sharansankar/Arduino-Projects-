@@ -1,4 +1,5 @@
 //minutes 
+int minute=0 ; 
 int oneM= 6;
 int twoM=5; 
 int fourM=4; 
@@ -7,6 +8,7 @@ int sixteenM=2 ;
 int thirtytwoM= 1; 
 
 //hours; 
+int hour= 0; 
 int oneH=13;
 int twoH=12; 
 int fourH=11; 
@@ -32,7 +34,7 @@ void setup() {
 void convertMinuteToBin(int number){
   if (number > 32){
     number-= 32; 
-    digitalWrite(thirytwoM, HIGH); 
+    digitalWrite(thirtytwoM, HIGH); 
     }  
   if (number > 16){
     number -= 16; 
@@ -55,7 +57,7 @@ void convertMinuteToBin(int number){
     }
   }
 
-void converHourToMinute(int number){
+void convertHourToBin(int number){
   if (number > 8){
     number-= 8; 
     digitalWrite(eightH, HIGH); 
@@ -74,6 +76,15 @@ void converHourToMinute(int number){
   }
 
 void loop() {
+  delay(6000);
+  minute ++; 
+  if (minute >=60){
+    minute= 0; 
+    hour++ ; 
+    }
+  convertMinuteToBin(minute); 
+  convertHourToBin(hour);  
+  
   // put your main code here, to run repeatedly:
 
 }
