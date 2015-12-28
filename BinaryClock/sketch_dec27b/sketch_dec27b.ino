@@ -32,51 +32,91 @@ void setup() {
 }
 
 void convertMinuteToBin(int number){
-  if (number > 32){
+  if (number >= 32){
     number-= 32; 
     digitalWrite(thirtytwoM, HIGH); 
     }  
-  if (number > 16){
+   else{
+    digitalWrite(thirtytwoM, LOW);
+      }
+      
+  if (number >= 16){
     number -= 16; 
     digitalWrite(sixteenM, HIGH);
     }
-  if (number > 8){
+  else{
+    digitalWrite(sixteenM, LOW);
+      }
+  if (number >= 8){
     number-= 8; 
     digitalWrite(eightM, HIGH); 
     }
-  if (number > 4){
+  else{
+    digitalWrite(eightM, LOW);
+    }
+    
+  if (number >= 4){
     number -= 4; 
     digitalWrite(fourM, HIGH); 
     }
-  if (number >2){
+  else{
+    digitalWrite(fourM, LOW);   
+      }
+      
+  if (number >=2){
     number -=2; 
     digitalWrite(twoM, HIGH); 
+    }
+  else{
+        digitalWrite(twoM, LOW); 
     }
   if (number == 1){
     digitalWrite(oneM,HIGH); 
     }
-  }
+  else{
+    digitalWrite(oneM,LOW); 
 
+    }
+}
 void convertHourToBin(int number){
-  if (number > 8){
+  if (number >= 8){
     number-= 8; 
     digitalWrite(eightH, HIGH); 
     }
-  if (number > 4){
+  else{
+    digitalWrite(eightH, LOW); 
+      }
+
+      
+  if (number >= 4){
     number -= 4; 
     digitalWrite(fourH, HIGH); 
     }
-  if (number >2){
+    else{
+          digitalWrite(fourH, LOW); 
+
+      }
+    
+  if (number >=2){
     number -=2; 
     digitalWrite(twoH, HIGH); 
     }
+   else{
+        digitalWrite(twoH, LOW); 
+    }
+    
   if (number == 1){
     digitalWrite(oneH,HIGH); 
     }
+  else{
+     digitalWrite(oneH,LOW); 
+
+      }
   }
 
 void loop() {
-  delay(6000);
+  
+  delay(60000);
   minute ++; 
   if (minute >=60){
     minute= 0; 
