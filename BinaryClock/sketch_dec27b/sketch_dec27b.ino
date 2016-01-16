@@ -1,3 +1,14 @@
+//Light Seonsor Data 
+const int analogInPin = A0;
+int sensorValue= 0; 
+int outputValue= 0; 
+int lastVal =0; 
+
+//speaker pin config
+const int buzzerPin=9; 
+int songLength= 11; 
+
+
 //minutes 
 int minute=0 ; 
 int oneM= 6;
@@ -29,6 +40,12 @@ void setup() {
   pinMode(twoH, OUTPUT);
   pinMode(fourH, OUTPUT);
   pinMode(eightH, OUTPUT);
+
+  //photoresistor initialization 
+  Serial.begin(9600);
+
+  //speaker initialization
+  pinMode(buzzerPin, OUTPUT);
 }
 
 void convertMinuteToBin(int number){
@@ -78,6 +95,7 @@ void convertMinuteToBin(int number){
 
     }
 }
+
 void convertHourToBin(int number){
   if (number >= 8){
     number-= 8; 
@@ -113,9 +131,56 @@ void convertHourToBin(int number){
 
       }
   }
+  
+void soundAlarm(){
+ int tempo= 180;  
+ char notes[]= "ccc ccc ccc";
+ char beats[]= {2,2,2,4,2,2,2,4,2,2,2};
+ int duration;
+ 
+ while(true){
+  for (int i = 0; i < SongLength; i++){
+    duration= beats[1]*tempo;    
+    
+    if(notes[i]==' '){
+      delay(duration); 
+      }
+     else{
+      lse{
+    tone(buzzerPin, 262, duration); 
+    delay(duration);
+    }
+  delay(tempo/10)   ;
+      }
+    }
+  }
+ 
+  }
+  
+void checkIfLinear(int reading){
+  if (lastVal==0){
+    lastVal= reading; 
+    }
+  else{
+    if(((lastVal- reading) > 50) && (lastVal > 200)){
+      soundAlarm(); 
+      }
+    lastVal= reading; 
+    }
+    
+  }
+
+void getSunlightReading(){
+    sensorValue = analogRead(analogInPin);
+    outputValue = map(sensorValue, 0, 1023, 0, 255);
+
+    checkIfLinear(outpuValue); 
+  }
+ 
 
 void loop() {
   
+  //Time keeping delay; 
   delay(60000);
   minute ++; 
   if (minute >=60){
@@ -123,8 +188,13 @@ void loop() {
     hour++ ; 
     }
   convertMinuteToBin(minute); 
-  convertHourToBin(hour);  
+  convertHourToBin(hour);
+
+  //getting the resistance values every 30 minutes
+  if(minute == 0 || minute == 30){
+    getSunlightReading(); 
+    }
   
-  // put your main code here, to run repeatedly:
+  
 
 }
